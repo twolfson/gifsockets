@@ -4,9 +4,9 @@ var PassThrough = require('readable-stream').PassThrough;
 var imageUtils = require('./utils/image');
 var Gifsocket = require('../');
 
-function writeRgbFrame() {
+function writeRgbaFrame() {
   before(function (done) {
-    this.gifsocket.writeRgbFrame(this.rgbPixels, done);
+    this.gifsocket.writeRgbaFrame(this.rgbaPixels, done);
   });
 }
 function openGifsocket() {
@@ -38,8 +38,8 @@ describe('A connection to a gifsocket', function () {
     before(function saveFrameData () {
       this._beforeFrameData = this.streamData;
     });
-    imageUtils.loadRgbImage('checkerboard.png');
-    writeRgbFrame();
+    imageUtils.loadRgbaImage('checkerboard.png');
+    writeRgbaFrame();
 
     it('receives a new frame', function () {
       assert.notEqual(this._beforeFrameData, this.streamData);
@@ -60,12 +60,12 @@ describe('A connection to a gifsocket', function () {
 describe('A conection to a gifsocket', function () {
   openGifsocket();
   describe('writing a first frame', function () {
-    imageUtils.loadRgbImage('checkerboard.png');
-    writeRgbFrame();
+    imageUtils.loadRgbaImage('checkerboard.png');
+    writeRgbaFrame();
 
     describe('and a second frame', function () {
-      imageUtils.loadRgbImage('checkerboard-inverse.png');
-      writeRgbFrame();
+      imageUtils.loadRgbaImage('checkerboard-inverse.png');
+      writeRgbaFrame();
       closeGifsocket();
       imageUtils.debug('multiple.gif');
 
