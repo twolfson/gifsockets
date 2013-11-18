@@ -1,3 +1,5 @@
+var assert = require('assert');
+var imageUtils = require('./utils/image');
 var Gifsockets = require('../');
 
 describe('A connection to a gifsocket', function () {
@@ -13,23 +15,17 @@ describe('A connection to a gifsocket', function () {
   });
 });
 
-describe('A conection to a gifsocket', function () {
+describe.skip('A conection to a gifsocket', function () {
   openImage();
   describe('writing a first frame', function () {
     imageUtils.load(__dirname + '/test-files/checkerboard.png');
     drawJsonFrame();
 
     describe('and a second frame', function () {
-      imageUtils.load(__dirname + '/test-files/checkerboard-inverse.png');
+      imageUtils.load('checkerboard-inverse.png');
       drawJsonFrame();
+      imageUtils.debug('multiple.png');
       closeImage();
-
-      if (process.env.DEBUG_TEST) {
-        before(function saveDebugImage () {
-          try { fs.mkdirSync(__dirname + '/actual-files/'); } catch (e) {}
-          fs.writeFileSync(__dirname + '/actual-files/multiple.gif', this.gifData, 'binary');
-        });
-      }
 
       it('receives both frames', function () {
         var expectedImg = fs.readFileSync(__dirname + '/expected-files/multiple.gif', 'binary');
