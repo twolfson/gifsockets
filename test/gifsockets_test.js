@@ -28,7 +28,7 @@ describe('A connection to a gifsocket', function () {
     this.streamData = '';
     this.stream.on('data', function (buff) {
       console.log(buff);
-      that.streamData += buff;
+      that.streamData += buff.toString('binary');
     });
     this.gifsocket.addListener(this.stream, function () {
       setTimeout(function () {
