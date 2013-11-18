@@ -52,7 +52,9 @@ Subscribe a [writable stream][wstream] to the stream of outgoing GIF frames
 ### `gifsocket.writeRgbFrame(rgbPixels, [cb])`
 Write a new RGB based frame to all of the current subscribers
 
-**IF YOU USE THIS METHOD, IT WILL MUTATE `rgbPixels`. PLEASE CLONE YOUR DATA IF YOU ARE WORRIED ABOUT CORRUPTION.**
+**IF YOU USE THIS METHOD, IT WILL MUTATE `rgbPixels`.**
+
+**PLEASE CLONE YOUR DATA IF YOU ARE WORRIED ABOUT CORRUPTION.**
 
 - rgbPixels `Number[]` - Array of rgb pixels of the new frame
     - This should be the the same length as `width * height * 3`
