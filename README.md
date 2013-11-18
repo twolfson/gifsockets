@@ -50,7 +50,23 @@ Subscribe a [writable stream][wstream] to the stream of outgoing GIF frames
 [wstream]: http://nodejs.org/api/stream.html#stream_class_stream_writable
 
 ### `gifsocket.writeRgbFrame(rgbPixels, [cb])`
+Write a new RGB based frame to all of the current subscribers
+
+**IF YOU USE THIS METHOD, IT WILL MUTATE `rgbPixels`. PLEASE CLONE YOUR DATA IF YOU ARE WORRIED ABOUT CORRUPTION.**
+
+- rgbPixels `Number[]` - Array of rgb pixels of the new frame
+    - This should be the the same length as `width * height * 3`
+    - `[0, 10, 20, 30, 40, 50]` represents 2 pixels; the first, `r: 0, g: 10, b: 20`; the second, `r: 30, g: 40, b: 50`
+- cb `Function` - Optional error-first callback to run once the frame has been drawn to all listeners
+    - Signature should look like `function (err) {}`
+
 ### `gifsocket.writeRgbaFrame(rgbaPixels, [cb])`
+Write a new RGBA based frame to all subscribers
+
+- rgbaPixels `Number[]` - Array of rgba pixels for the next frame
+    - Length should be `width * height * 4`
+    - `[0, 10, 20, 30, 40, 50, 60, 70]` represents 2 pixels; the first, `r: 0, g: 10, b: 20, a: 30`; the second, `r: 40, g: 50, b: 60, a: 70`
+
 ### `gifsocket.closeAll([cb])`
 
 ## Frequently asked questions
