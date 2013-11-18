@@ -68,6 +68,10 @@ Write a new RGBA based frame to all subscribers
     - `[0, 10, 20, 30, 40, 50, 60, 70]` represents 2 pixels; the first, `r: 0, g: 10, b: 20, a: 30`; the second, `r: 40, g: 50, b: 60, a: 70`
 
 ### `gifsocket.closeAll([cb])`
+Write GIF footer to all open listeners and close them
+
+- cb `Function` - Optional error-first callback to run once the footer has written to all listeners
+    - Signature should look like `function (err) {}`
 
 ## Frequently asked questions
 ### Why is this not on streams?
