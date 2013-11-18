@@ -13,15 +13,18 @@ Install the module with: `npm install gifsockets`
 
 ```javascript
 var gifsocket = new require('gifsockets');
-var id = gifsocket.addListener(stream);
+gifsocket.addListener(stream, [cb]);
+// Pass back (err, handle)
 
-// Write out an image to all streams
-gifsocket.writeFrame([0, 0, 0, 255/*, ...*/]); // Array of rgba pixels
-// TBD...
+// Write an image to one or all streams
+handle.writeFrame([0, 0, 0, 255/*, ...*/], [cb]); // Array of rgba pixels
+gifsocket.writeFrame([0, 0, 0, 255/*, ...*/], [cb]); // Array of rgba pixels
+// Pass back (err)
 
 // Close a specific stream or all streams
-gifsocket.closeStream(id, [cb]);
+handle.close([cb]);
 gifsocket.closeAll([cb]);
+// Pass back (err)
 ```
 
 ## Documentation
