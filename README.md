@@ -2,14 +2,15 @@
 
 Stream never-ending animated [GIFs][GIF]
 
+This is part of the [gifsockets][] project. It creates a [mediator][] for streams to subscribe to as new [GIF][] frames are written.
+
 Want to see `gifsockets` in action? See the demo:
 
 http://console-log.2013.nodeknockout.com/
 
-This is part of the [gifsockets][] project. It is used to create a common object where we streams can subscribe and frames can be written.
-
 [GIF]: http://en.wikipedia.org/wiki/Graphics_Interchange_Format
 [gifsockets]: https://github.com/twolfson/gifsockets-server
+[mediator]: http://en.wikipedia.org/wiki/Mediator_pattern
 
 ## Getting Started
 Install the module with: `npm install gifsockets`
@@ -19,7 +20,8 @@ Install the module with: `npm install gifsockets`
 var gifsocket = new require('gifsockets');
 gifsocket.addListener(stream, function (err) {
   // Write a new GIF frame to the stream
-  // WARNING: YOUR DATA WILL BE MUTATED. PLEASE CLONE IT BEFORE HAND IF YOU ARE WORRIED ABOUT IT.
+  // WARNING: YOUR DATA WILL BE MUTATED.
+  // PLEASE CLONE IT BEFORE HAND IF YOU ARE WORRIED ABOUT IT.
   var rgbPixels = [0, 0, 0, /*, ...*/];
   gifsocket.writeRgbFrame(rgbPixels, function (err) {
     // Close the stream
@@ -29,10 +31,24 @@ gifsocket.addListener(stream, function (err) {
 ```
 
 ## Documentation
-_(Coming soon)_
+`gifsockets` exposes a constructor `Gifsocket` function as its `module.exports`.
 
 ### `new Gifsocket(options)`
+Constructor for a `Gifsocket`
+
+- options `Object`
+    - options.width `Number` - Width of the output GIF
+    - options.height `Number` - Height of the output GIF
+
 ### `gifsocket.addListener(stream, [cb])`
+Subscribe a [writable stream][wstream] to the stream of outgoing GIF frames
+
+- stream `WritableStream` - [Writable stream][wstream] to write GIF information to
+- cb `Function` - Optional error-first callback to run once the stream has received the [GIF][] header
+    - Signature should look like `function (err) {}`
+
+[wstream]: http://nodejs.org/api/stream.html#stream_class_stream_writable
+
 ### `gifsocket.writeRgbFrame(rgbPixels, [cb])`
 ### `gifsocket.writeRgbaFrame(rgbaPixels, [cb])`
 ### `gifsocket.closeAll([cb])`
