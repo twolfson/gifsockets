@@ -11,10 +11,12 @@ describe('A connection to a gifsocket', function () {
     });
   });
   before(function createListener (done) {
+    var that = this;
     this.stream = new PassThrough();
     this.streamData = '';
     this.stream.on('data', function (buff) {
-      this.streamData += buff;
+      console.log('dataaa');
+      that.streamData += buff;
     });
     this.gifsocket.addListener(this.stream, done);
   });
