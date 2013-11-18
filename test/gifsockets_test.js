@@ -27,6 +27,7 @@ describe('A connection to a gifsocket', function () {
     this.stream = new PassThrough();
     this.streamData = '';
     this.stream.on('data', function (buff) {
+      console.log(buff);
       that.streamData += buff;
     });
     this.gifsocket.addListener(this.stream, function () {
@@ -51,6 +52,7 @@ describe('A connection to a gifsocket', function () {
       before(function (done) {
         this.gifsocket.closeAll(function () {
           setTimeout(function () {
+            console.log('closed');
             done();
           }, 1000);
         });
