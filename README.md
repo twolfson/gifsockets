@@ -15,31 +15,27 @@ This is part of the [gifsockets][] project. It is used to create a common object
 Install the module with: `npm install gifsockets`
 
 ```javascript
+// Pass any writable stream as a listener to gifsocket
 var gifsocket = new require('gifsockets');
-gifsocket.addListener(stream, [cb]);
-// Pass back (err, handle)
-
-// Write an image to one or all streams
-// WARNING: YOUR DATA WILL BE MUTATED. PLEASE CLONE IT BEFORE HAND IF YOU ARE WORRIED ABOUT IT.
-handle.writeRgbFrame([0, 0, 0, /*, ...*/], [cb]); // Array of rgba pixels
-gifsocket.writeRgbFrame([0, 0, 0, /*, ...*/], [cb]); // Array of rgba pixels
-// Pass back (err)
-
-// TODO: Should we have a method for these?
-// handle.writeRgbaFrame([0, 0, 0, 255/*, ...*/], [cb]);
-// gifsocket.writeRgbaFrame([0, 0, 0, 255/*, ...*/], [cb]); // Array of rgba pixels
-
-// Close a specific stream or all streams
-handle.close([cb]);
-gifsocket.closeAll([cb]);
-// Pass back (err)
+gifsocket.addListener(stream, function (err) {
+  // Write a new GIF frame to the stream
+  // WARNING: YOUR DATA WILL BE MUTATED. PLEASE CLONE IT BEFORE HAND IF YOU ARE WORRIED ABOUT IT.
+  var rgbPixels = [0, 0, 0, /*, ...*/];
+  gifsocket.writeRgbFrame(rgbPixels, function (err) {
+    // Close the stream
+    gifsocket.closeAll();
+  });
+});
 ```
 
 ## Documentation
 _(Coming soon)_
 
-## Examples
-_(Coming soon)_
+### `new Gifsocket(options)`
+### `gifsocket.addListener(stream, [cb])`
+### `gifsocket.writeRgbFrame(rgbPixels, [cb])`
+### `gifsocket.writeRgbaFrame(rgbaPixels, [cb])`
+### `gifsocket.closeAll([cb])`
 
 ## Frequently asked questions
 ### Why is this not on streams?
