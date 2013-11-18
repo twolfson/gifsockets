@@ -9,7 +9,7 @@ exports.load = function (filename) {
       if (err) {
         return done(err);
       }
-      that.rgbaPixels = pixels;
+      that.rgbaPixels = pixels.data;
       done();
     });
   });
