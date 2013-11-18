@@ -1,11 +1,40 @@
-var gifsockets = require('../lib/gifsockets.js');
+var Gifsockets = require('../');
 
-describe('gifsockets', function () {
-  before(function () {
+describe('A connection to a gifsocket', function () {
+  describe('writing an RGB frame', function () {
+    it('receives a new frame', function () {
 
+    });
+
+    describe('and closing the image', function () {
+      it('creates a GIF image', function () {
+      });
+    });
   });
+});
 
-  it('', function () {
+describe('A conection to a gifsocket', function () {
+  openImage();
+  describe('writing a first frame', function () {
+    imageUtils.load(__dirname + '/test-files/checkerboard.png');
+    drawJsonFrame();
 
+    describe('and a second frame', function () {
+      imageUtils.load(__dirname + '/test-files/checkerboard-inverse.png');
+      drawJsonFrame();
+      closeImage();
+
+      if (process.env.DEBUG_TEST) {
+        before(function saveDebugImage () {
+          try { fs.mkdirSync(__dirname + '/actual-files/'); } catch (e) {}
+          fs.writeFileSync(__dirname + '/actual-files/multiple.gif', this.gifData, 'binary');
+        });
+      }
+
+      it('receives both frames', function () {
+        var expectedImg = fs.readFileSync(__dirname + '/expected-files/multiple.gif', 'binary');
+        assert.strictEqual(this.gifData, expectedImg);
+      });
+    });
   });
 });
