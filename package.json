@@ -1,6 +1,6 @@
 {
   "name": "gifsockets",
-  "description": "Never-ending animated GIFs as a chat system",
+  "description": "Stream never-ending animated GIFs",
   "version": "0.1.0",
   "homepage": "https://github.com/twolfson/gifsockets",
   "author": {

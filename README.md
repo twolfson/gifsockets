@@ -1,12 +1,15 @@
 # gifsockets [![Build status](https://travis-ci.org/twolfson/gifsockets.png?branch=master)](https://travis-ci.org/twolfson/gifsockets)
 
-Never-ending animated GIFs as a chat system
+Stream never-ending animated [GIFs][GIF]
 
-Want to see `gifsockets` in action? Demo:
+Want to see `gifsockets` in action? See the demo:
 
 http://console-log.2013.nodeknockout.com/
 
-This is part of the [gifsockets][] project.
+This is part of the [gifsockets][] project. It is used to create a common object where we streams can subscribe and frames can be written.
+
+[GIF]: http://en.wikipedia.org/wiki/Graphics_Interchange_Format
+[gifsockets]: https://github.com/twolfson/gifsockets-server
 
 ## Getting Started
 Install the module with: `npm install gifsockets`
