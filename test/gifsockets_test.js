@@ -1,7 +1,14 @@
 var assert = require('assert');
+var fs = require('fs');
 var PassThrough = require('readable-stream').PassThrough;
 var imageUtils = require('./utils/image');
 var Gifsocket = require('../');
+
+function writeRgbFrame() {
+  before(function (done) {
+    this.gifsocket.writeRgbFrame(this.rgbPixels, done);
+  });
+}
 
 describe('A connection to a gifsocket', function () {
   before(function createGifsocket () {
@@ -15,24 +22,31 @@ describe('A connection to a gifsocket', function () {
     this.stream = new PassThrough();
     this.streamData = '';
     this.stream.on('data', function (buff) {
-      console.log('dataaa');
       that.streamData += buff;
     });
     this.gifsocket.addListener(this.stream, done);
   });
 
   describe('writing an RGB frame', function () {
-    before(function () {
+    before(function saveFrameData () {
       this._beforeFrameData = this.streamData;
-      console.log(this.streamData.length);
     });
+    imageUtils.loadRgbImage('checkerboard.png');
+    writeRgbFrame();
 
     it('receives a new frame', function () {
-
+      assert.notEqual(this._beforeFrameData, this.streamData);
     });
 
     describe('and closing the image', function () {
+      before(function () {
+        this.gifsocket.closeAll();
+      });
+      imageUtils.debug('single.gif');
+
       it('creates a GIF image', function () {
+        var expectedImg = fs.readFileSync(__dirname + '/expected-files/single.gif', 'binary');
+        assert.strictEqual(this.streamData, expectedImg);
       });
     });
   });
@@ -41,7 +55,6 @@ describe('A connection to a gifsocket', function () {
 // describe.skip('A conection to a gifsocket', function () {
 //   openImage();
 //   describe.skip('writing a first frame', function () {
-//     imageUtils.load(__dirname + '/test-files/checkerboard.png');
 //     drawJsonFrame();
 
 //     describe('and a second frame', function () {
