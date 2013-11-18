@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Writable = require('stream').Writable;
+var streamUtils = require('./utils/stream');
 var imageUtils = require('./utils/image');
 var Gifsocket = require('../');
 
@@ -10,13 +10,17 @@ describe('A connection to a gifsocket', function () {
       width: 10
     });
   });
-  before(function () {
-    this.stream = new Writable();
-    // this.streamData = this.stream.on('data'
-    this.gifsocket.addListener(this.stream);
+  streamUtils.createWriteStream();
+  before(function (done) {
+    this.gifsocket.addListener(this.stream, done);
   });
 
   describe('writing an RGB frame', function () {
+    before(function () {
+      this._beforeFrameData = this.streamData;
+      console.log(this.streamData.length);
+    });
+
     it('receives a new frame', function () {
 
     });
