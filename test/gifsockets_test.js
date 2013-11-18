@@ -1,17 +1,21 @@
 var assert = require('assert');
-var streamUtils = require('./utils/stream');
+var PassThrough = require('readable-stream').PassThrough;
 var imageUtils = require('./utils/image');
 var Gifsocket = require('../');
 
 describe('A connection to a gifsocket', function () {
-  before(function () {
+  before(function createGifsocket () {
     this.gifsocket = new Gifsocket({
       height: 10,
       width: 10
     });
   });
-  streamUtils.createWriteStream();
-  before(function (done) {
+  before(function createListener (done) {
+    this.stream = new PassThrough();
+    this.streamData = '';
+    this.stream.on('data', function (buff) {
+      this.streamData += buff;
+    });
     this.gifsocket.addListener(this.stream, done);
   });
 
