@@ -6,7 +6,7 @@ var Gifsocket = require('../');
 
 function writeRgbFrame() {
   before(function (done) {
-    this.gifsocket.writeRgbFrame([].slice.call(this.rgbaPixels.data), done);
+    this.gifsocket.writeRgbFrame(this.rgbaPixels.data, done);
   });
 }
 

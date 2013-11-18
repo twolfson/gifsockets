@@ -19,7 +19,7 @@ exports.loadRgbImage = function (filename) {
   exports.load(filename);
   before(function downgradeImage () {
     var gif = new GifEncoder(10, 10);
-    this.rgbPixels = gif.removeAlphaChannel([].slice.call(this.rgbaPixels.data));
+    this.rgbPixels = gif.removeAlphaChannel(this.rgbaPixels);
   });
 };
 
