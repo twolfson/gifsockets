@@ -18,8 +18,8 @@ gifsocket.addListener(stream, [cb]);
 
 // Write an image to one or all streams
 // WARNING: YOUR DATA WILL BE MUTATED. PLEASE CLONE IT BEFORE HAND IF YOU ARE WORRIED ABOUT IT.
-// handle.writeRgbFrame([0, 0, 0, /*, ...*/], [cb]); // Array of rgba pixels
-// gifsocket.writeRgbFrame([0, 0, 0, /*, ...*/], [cb]); // Array of rgba pixels
+handle.writeRgbFrame([0, 0, 0, /*, ...*/], [cb]); // Array of rgba pixels
+gifsocket.writeRgbFrame([0, 0, 0, /*, ...*/], [cb]); // Array of rgba pixels
 // Pass back (err)
 
 // TODO: Should we have a method for these?
