@@ -9,8 +9,7 @@ function writeRgbFrame() {
     this.gifsocket.writeRgbFrame(this.rgbPixels, done);
   });
 }
-
-describe('A connection to a gifsocket', function () {
+function openGifsocket() {
   before(function createGifsocket () {
     this.gifsocket = new Gifsocket({
       height: 10,
@@ -26,7 +25,15 @@ describe('A connection to a gifsocket', function () {
     });
     this.gifsocket.addListener(this.stream, done);
   });
+}
+function closeGifsocket() {
+  before(function (done) {
+    this.gifsocket.closeAll(done);
+  });
+}
 
+describe('A connection to a gifsocket', function () {
+  openGifsocket();
   describe('writing an RGB frame', function () {
     before(function saveFrameData () {
       this._beforeFrameData = this.streamData;
@@ -39,9 +46,7 @@ describe('A connection to a gifsocket', function () {
     });
 
     describe('and closing the image', function () {
-      before(function (done) {
-        this.gifsocket.closeAll(done);
-      });
+      closeGifsocket();
       imageUtils.debug('single.gif');
 
       it('creates a GIF image', function () {
@@ -52,21 +57,22 @@ describe('A connection to a gifsocket', function () {
   });
 });
 
-// describe.skip('A conection to a gifsocket', function () {
-//   openImage();
-//   describe.skip('writing a first frame', function () {
-//     drawJsonFrame();
+describe('A conection to a gifsocket', function () {
+  openGifsocket();
+  describe('writing a first frame', function () {
+    imageUtils.loadRgbImage('checkerboard.png');
+    writeRgbFrame();
 
-//     describe('and a second frame', function () {
-//       imageUtils.load('checkerboard-inverse.png');
-//       drawJsonFrame();
-//       imageUtils.debug('multiple.png');
-//       closeImage();
+    describe('and a second frame', function () {
+      imageUtils.loadRgbImage('checkerboard-inverse.png');
+      writeRgbFrame();
+      closeGifsocket();
+      imageUtils.debug('multiple.gif');
 
-//       it('receives both frames', function () {
-//         var expectedImg = fs.readFileSync(__dirname + '/expected-files/multiple.gif', 'binary');
-//         assert.strictEqual(this.gifData, expectedImg);
-//       });
-//     });
-//   });
-// });
+      it('receives both frames', function () {
+        var expectedImg = fs.readFileSync(__dirname + '/expected-files/multiple.gif', 'binary');
+        assert.strictEqual(this.streamData, expectedImg);
+      });
+    });
+  });
+});
