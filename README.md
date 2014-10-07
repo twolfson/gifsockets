@@ -6,7 +6,7 @@ This is part of the [gifsockets][] project. It creates a [mediator][] for stream
 
 Want to see `gifsockets` in action? See the demo:
 
-http://console-log.2013.nodeknockout.com/
+http://gifsockets.twolfson.com/
 
 [GIF]: http://en.wikipedia.org/wiki/Graphics_Interchange_Format
 [gifsockets]: https://github.com/twolfson/gifsockets-server
